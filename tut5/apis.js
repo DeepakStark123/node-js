@@ -55,7 +55,7 @@ app.put("/:name", async (req, res) => {
   }
 });
 
-//-----Delete-APi-----
+//-----Delete-API-----
 app.delete("/:name", async (req, res) => {
   log(req.params.name);
   try {
