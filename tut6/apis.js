@@ -12,15 +12,15 @@ app.use(express.json());
 
 //-----Get-API-----
 app.get("/get", async (req, resp) => {
-    try {
-      let result = await productModel.find();
-      log(result);
-      resp.send(result);
-    } catch (error) {
-      console.error(error);
-      resp.status(500).send("Internal Server Error");
-    }
-  });
+  try {
+    let result = await productModel.find();
+    log(result);
+    resp.send(result);
+  } catch (error) {
+    console.error(error);
+    resp.status(500).send("Internal Server Error");
+  }
+});
 
 //-----Post-API-----
 app.post("/create", async (req, resp) => {
@@ -64,6 +64,25 @@ app.delete("/delete/:_id", async (req, resp) => {
     resp.send("Data Deleted Successfully");
   } catch (error) {
     console.error(error);
+    resp.status(500).send("Internal Server Error");
+  }
+});
+
+//-----Search-API-----
+app.get("/search/:key", async (req, resp) => {
+  try {
+    let result = await productModel.find({
+      $or: [
+        { "name" : { $regex: req.params.key } }, 
+        { "brand": { $regex: req.params.key } },
+        { "category" : { $regex: req.params.key } },
+      ],
+    });
+    log(result);
+    resp.send(result);
+  } catch (error) {
+    console.error(error);
+    resp.status(404).send("Not Found");
     resp.status(500).send("Internal Server Error");
   }
 });
