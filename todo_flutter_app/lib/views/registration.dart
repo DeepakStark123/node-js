@@ -1,12 +1,11 @@
-import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:todo_flutter_app/apis.dart';
+import 'package:get/get.dart';
+import 'package:todo_flutter_app/controllers/signup_controller.dart';
+import 'package:todo_flutter_app/utils/colors.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'applogo.dart';
-import 'signIn_page.dart';
-import 'package:http/http.dart' as http;
+import '../applogo.dart';
 
 class Registration extends StatefulWidget {
   const Registration({super.key});
@@ -16,39 +15,7 @@ class Registration extends StatefulWidget {
 }
 
 class _RegistrationState extends State<Registration> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  bool _isNotValidate = false;
-
-  void registerUser() async {
-    if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
-      var regBody = {
-        "email": emailController.text,
-        "password": passwordController.text
-      };
-
-      var response = await http.post(Uri.parse(registration),
-          headers: {"Content-Type": "application/json"},
-          body: jsonEncode(regBody));
-
-      var jsonResponse = jsonDecode(response.body);
-
-      debugPrint(jsonResponse['status']);
-
-      if (jsonResponse['status']) {
-        if (mounted) {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const SignInPage()));
-        }
-      } else {
-        debugPrint("SomeThing Went Wrong");
-      }
-    } else {
-      setState(() {
-        _isNotValidate = true;
-      });
-    }
-  }
+  RegistrationController signUpController = Get.put(RegistrationController());
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +26,7 @@ class _RegistrationState extends State<Registration> {
           height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-                colors: [Color(0XFFF95A3B), Color(0XFFF96713)],
+                colors: backgroundLinerColor,
                 begin: FractionalOffset.topLeft,
                 end: FractionalOffset.bottomCenter,
                 stops: [0.0, 0.8],
@@ -71,30 +38,33 @@ class _RegistrationState extends State<Registration> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const CommonLogo(),
-                  const HeightBox(10),
+                  const HeightBox(20),
                   "CREATE YOUR ACCOUNT".text.size(22).yellow100.make(),
+                  const HeightBox(10),
                   TextField(
-                    controller: emailController,
+                    controller: signUpController.emailController,
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
                         errorStyle: const TextStyle(color: Colors.white),
-                        errorText: _isNotValidate ? "Enter Proper Info" : null,
+                        errorText: signUpController.isNotValidated.value
+                            ? "Enter Proper Info"
+                            : null,
                         hintText: "Email",
                         border: const OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10.0)))),
                   ).p4().px24(),
                   TextField(
-                    controller: passwordController,
+                    controller: signUpController.passwordController,
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                         suffixIcon: IconButton(
                           icon: const Icon(Icons.copy),
                           onPressed: () {
-                            final data =
-                                ClipboardData(text: passwordController.text);
+                            final data = ClipboardData(
+                                text: signUpController.passwordController.text);
                             Clipboard.setData(data);
                           },
                         ),
@@ -102,42 +72,55 @@ class _RegistrationState extends State<Registration> {
                           icon: const Icon(Icons.password),
                           onPressed: () {
                             String passGen = generatePassword();
-                            passwordController.text = passGen;
+                            signUpController.passwordController.text = passGen;
                             setState(() {});
                           },
                         ),
                         filled: true,
                         fillColor: Colors.white,
                         errorStyle: const TextStyle(color: Colors.white),
-                        errorText: _isNotValidate ? "Enter Proper Info" : null,
+                        errorText: signUpController.isNotValidated.value
+                            ? "Enter Proper Info"
+                            : null,
                         hintText: "Password",
                         border: const OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10.0)))),
                   ).p4().px24(),
-                  HStack([
-                    GestureDetector(
-                      onTap: () => {registerUser()},
-                      child: VxBox(
-                              child: "Register".text.white.makeCentered().p16())
-                          .green600
-                          .roundedLg
-                          .make()
-                          .px16()
-                          .py16(),
+                  const SizedBox(height: 20),
+                  GestureDetector(
+                    onTap: () {
+                      signUpController.registerUser();
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 25),
+                      height: 50,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.green[600],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "Register",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ),
-                  ]),
+                  ),
+                  const SizedBox(height: 5),
                   GestureDetector(
                     onTap: () {
                       debugPrint("Sign In");
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SignInPage()));
+                      Get.back();
                     },
                     child: HStack([
-                      "Already Registered?".text.make(),
-                      " Sign In".text.white.make()
+                      "Already Registered?".text.size(16).make(),
+                      " Sign In".text.size(16).white.make()
                     ]).centered(),
                   )
                 ],

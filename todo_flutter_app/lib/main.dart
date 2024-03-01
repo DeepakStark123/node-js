@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_flutter_app/dashboard.dart';
-import 'package:todo_flutter_app/signIn_page.dart';
+import 'package:todo_flutter_app/views/signIn_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'TodoApp',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

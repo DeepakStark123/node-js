@@ -9,12 +9,12 @@ class CommonLogo extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Image.network(
-          "https://pluspng.com/img-png/avengers-logo-png-avengers-logo-png-1376.png",
+        Image.asset(
+          "assets/logo.png",
           width: 100,
         ),
-        "To-Do App".text.xl2.italic.make(),
-        "Make A List of your task".text.light.white.wider.lg.make(),
+        "To-Do App".text.xl2.make(),
+        "Keep Your Tasks In This App".text.light.white.wider.lg.make(),
       ],
     );
   }
