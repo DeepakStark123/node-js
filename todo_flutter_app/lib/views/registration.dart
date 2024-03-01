@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:todo_flutter_app/controllers/signup_controller.dart';
 import 'package:todo_flutter_app/utils/colors.dart';
 import 'package:velocity_x/velocity_x.dart';
-import '../applogo.dart';
+import '../widgets/applogo.dart';
 
 class Registration extends StatefulWidget {
   const Registration({super.key});
@@ -41,52 +41,58 @@ class _RegistrationState extends State<Registration> {
                   const HeightBox(20),
                   "CREATE YOUR ACCOUNT".text.size(22).yellow100.make(),
                   const HeightBox(10),
-                  TextField(
-                    controller: signUpController.emailController,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        errorStyle: const TextStyle(color: Colors.white),
-                        errorText: signUpController.isNotValidated.value
-                            ? "Enter Proper Info"
-                            : null,
-                        hintText: "Email",
-                        border: const OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0)))),
-                  ).p4().px24(),
-                  TextField(
-                    controller: signUpController.passwordController,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                        suffixIcon: IconButton(
-                          icon: const Icon(Icons.copy),
-                          onPressed: () {
-                            final data = ClipboardData(
-                                text: signUpController.passwordController.text);
-                            Clipboard.setData(data);
-                          },
-                        ),
-                        prefixIcon: IconButton(
-                          icon: const Icon(Icons.password),
-                          onPressed: () {
-                            String passGen = generatePassword();
-                            signUpController.passwordController.text = passGen;
-                            setState(() {});
-                          },
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        errorStyle: const TextStyle(color: Colors.white),
-                        errorText: signUpController.isNotValidated.value
-                            ? "Enter Proper Info"
-                            : null,
-                        hintText: "Password",
-                        border: const OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0)))),
-                  ).p4().px24(),
+                  Obx(
+                    () => TextField(
+                      controller: signUpController.emailController,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          errorStyle: const TextStyle(color: Colors.white),
+                          errorText: signUpController.isNotValidated.value
+                              ? "Enter Proper Info"
+                              : null,
+                          hintText: "Email",
+                          border: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)))),
+                    ).p4().px24(),
+                  ),
+                  Obx(
+                    () => TextField(
+                      controller: signUpController.passwordController,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.copy),
+                            onPressed: () {
+                              final data = ClipboardData(
+                                  text:
+                                      signUpController.passwordController.text);
+                              Clipboard.setData(data);
+                            },
+                          ),
+                          prefixIcon: IconButton(
+                            icon: const Icon(Icons.password),
+                            onPressed: () {
+                              String passGen = generatePassword();
+                              signUpController.passwordController.text =
+                                  passGen;
+                              setState(() {});
+                            },
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          errorStyle: const TextStyle(color: Colors.white),
+                          errorText: signUpController.isNotValidated.value
+                              ? "Enter Proper Info"
+                              : null,
+                          hintText: "Password",
+                          border: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)))),
+                    ).p4().px24(),
+                  ),
                   const SizedBox(height: 20),
                   GestureDetector(
                     onTap: () {
@@ -138,9 +144,7 @@ String generatePassword() {
   String lower = 'abcdefghijklmnopqrstuvwxyz';
   String numbers = '1234567890';
   String symbols = '!@#\$%^&*()<>,./';
-
   String password = '';
-
   int passLength = 20;
 
   String seed = upper + lower + numbers + symbols;

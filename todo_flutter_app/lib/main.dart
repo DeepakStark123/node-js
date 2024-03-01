@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:todo_flutter_app/dashboard.dart';
+import 'package:todo_flutter_app/views/home_screen.dart';
 import 'package:todo_flutter_app/views/signIn_page.dart';
 
 void main() async {
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: (token != null && JwtDecoder.isExpired(token ?? "") == false)
-          ? Dashboard(token: token ?? "")
+          ? HomeScreen(token: token ?? "")
           : const SignInPage(),
     );
   }

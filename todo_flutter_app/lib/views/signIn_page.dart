@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todo_flutter_app/utils/colors.dart';
 import 'registration.dart';
-import '../applogo.dart';
+import '../widgets/applogo.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -53,15 +53,21 @@ class _SignInPageState extends State<SignInPage> {
                 const SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: TextFormField(
-                    controller: signInController.emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      hintText: "Enter Email",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
+                  child: Obx(
+                    () => TextFormField(
+                      controller: signInController.emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: "Enter Email",
+                        errorStyle: const TextStyle(color: Colors.white),
+                        errorText: signInController.isNotValidated.value
+                            ? "Enter Proper Info"
+                            : null,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
                       ),
                     ),
                   ),
@@ -69,22 +75,30 @@ class _SignInPageState extends State<SignInPage> {
                 const SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: TextFormField(
-                    controller: signInController.passwordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      hintText: "Enter Password",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
+                  child: Obx(
+                    () => TextFormField(
+                      controller: signInController.passwordController,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: "Enter Password",
+                        errorStyle: const TextStyle(color: Colors.white),
+                        errorText: signInController.isNotValidated.value
+                            ? "Enter Proper Info"
+                            : null,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
                       ),
                     ),
                   ),
                 ),
                 const SizedBox(height: 20),
                 GestureDetector(
-                  onTap: signInController.loginUser,
+                  onTap: () {
+                    signInController.loginUser();
+                  },
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     height: 50,

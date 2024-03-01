@@ -24,8 +24,8 @@ class RegistrationController extends GetxController {
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(regBody),
       );
-      debugPrint("api statuscode===> ${response.statusCode}");
-      debugPrint("api res===> ${response.body}");
+      debugPrint("signup-api-statuscode===> ${response.statusCode}");
+      debugPrint("signup-api-res===> ${response.body}");
       Map<String, dynamic> jsonResponse = jsonDecode(response.body.toString());
       debugPrint(jsonResponse['status'].toString());
       if (response.statusCode == 200 && jsonResponse['status'] == true) {
