@@ -24,15 +24,15 @@ exports.login = async (req, res, next) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) {
-            return res.status(200).json({status: false, error: 'Email and password are required' });
+            return res.status(200).json({ status: false, error: 'Email and password are required' });
         }
         let user = await UserService.checkUserExistence(email);
         if (!user) {
-            return res.status(200).json({status: false, error: 'User not found' });
+            return res.status(200).json({ status: false, error: 'User not found' });
         }
         const isPasswordCorrect = await user.comparePassword(password);
         if (!isPasswordCorrect) {
-            return res.status(200).json({status: false, error: 'Incorrect email or password' });
+            return res.status(200).json({ status: false, error: 'Incorrect email or password' });
         }
         // Creating Token
         let tokenData = { _id: user._id, email: user.email };
