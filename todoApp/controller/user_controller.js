@@ -1,11 +1,11 @@
 const UserService = require('../services/user_services');
 
 //---User-registration----
-exports.register = async (req, res, next)=> {
+exports.register = async (req, res, next) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) {
-            return res.status(200).json({status: false, error: 'Email and password are required' });
+            return res.status(200).json({ status: false, error: 'Email and password are required' });
         }
         const duplicate = await UserService.checkUserExistence(email);
         if (duplicate) {
@@ -36,7 +36,7 @@ exports.login = async (req, res, next) => {
         }
         // Creating Token
         let tokenData = { _id: user._id, email: user.email };
-        const token = await UserService.generateAccessToken(tokenData,"secret","1h")
+        const token = await UserService.generateAccessToken(tokenData, "secret", "1h")
         res.status(200).json({ status: true, success: "sendData", token: token });
     } catch (error) {
         console.log('Login Exceptions---->', error);
