@@ -39,7 +39,7 @@ exports.login = async (req, res, next) => {
         }
         // Creating Token
         let tokenData = { _id: user._id, email: user.email };
-        const token = await UserService.generateAccessToken(tokenData, "secret", "1h")
+        const token = await UserService.generateAccessToken(tokenData, "secret", "2h")
         res.status(200).json({ status: true, success: "sendData", token: token });
     } catch (error) {
         console.log('Login Exceptions---->', error);
