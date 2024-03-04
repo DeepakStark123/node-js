@@ -14,6 +14,9 @@ exports.register = async (req, res, next) => {
         const response = await UserService.registerUser(email, password);
         return res.status(200).json({ status: true, success: 'User registered successfully' });
     } catch (error) {
+        if (error.errors && error.errors.email && error.errors.email.kind === 'regexp') {
+            return res.status(200).json({ status: false, error: 'Invalid email format' });
+        }
         console.log('Registration Exceptions---->', error);
         return res.status(500).json({ error: 'Internal Server Error' });
     }
