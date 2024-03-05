@@ -17,7 +17,7 @@ The `Node_js_with_flutter` folder contains several subfolders, each representing
 
 The `websocket_tut` folder contains a tutorial on implementing a WebSocket connection in Node.js, featuring a chat room example.
 
-[**Read More --> websocket_tut**](./websocket_tut/CHAT_APP_README.md)
+[**Read More --> websocket_tut**](./websocket_tut/README.md)
 
 ## Flutter Todo App with Node.js API Integration
 
