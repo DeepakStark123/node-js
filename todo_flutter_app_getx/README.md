@@ -1,16 +1,26 @@
-# todo_flutter_app
+# Todo App with Flutter, Node.js, and MongoDB
 
-A new Flutter project.
+## Overview
 
-## Getting Started
+This project is a simple todo app that allows users to manage their tasks. It consists of a Flutter frontend for the mobile application and a Node.js backend with MongoDB as the database.
 
-This project is a starting point for a Flutter application.
+## Features
 
-A few resources to get you started if this is your first Flutter project:
+- **Create**: Users can create new tasks.
+- **Edit**: Users can edit existing tasks.
+- **Delete**: Users can delete tasks.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Technologies Used
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Flutter**: A UI toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase.
+- **Node.js**: A JavaScript runtime built on Chrome's V8 JavaScript engine for building scalable network applications.
+- **MongoDB**: A NoSQL database program that uses JSON-like documents with optional schemas.
+- **GetX**: A lightweight and powerful state management solution for Flutter.
+
+## Author
+
+- [**Deepak Kumar**]
+
+## Contributing
+
+Contributions are welcome! If you have any improvements or additional tutorials to add, feel free to submit a pull request.
