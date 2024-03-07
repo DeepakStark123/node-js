@@ -5,21 +5,26 @@ const PORT = process.env.PORT || 4500
 const server = app.listen(PORT, () => console.log(`💬 server on port ${PORT}`))
 const io = require('socket.io')(server)
 
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public')));
 
-let socketsConected = new Set()
+let socketsConected = new Set();
 
-io.on('connection', onConnected)
+io.on('connection', onConnected);
 
 function onConnected(socket) {
+  
+  //---connected---
   console.log('Socket connected', socket.id)
   socketsConected.add(socket.id)
   io.emit('clients-total', socketsConected.size)
-
+  console.log('Toal connected users =>', socketsConected.size);
+  
+  //---dis-connect---
   socket.on('disconnect', () => {
     console.log('Socket disconnected', socket.id)
     socketsConected.delete(socket.id)
     io.emit('clients-total', socketsConected.size)
+    console.log('Toal connected users =>', socketsConected.size);
   })
 
   socket.on('message', (data) => {
