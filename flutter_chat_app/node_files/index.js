@@ -30,14 +30,10 @@ io.on('connection', (socket) => {
 
   //---Send-message---
   socket.on("send_message", (data) => {
-    console.log(data);
-    socket.broadcast.emit("receive_message", data)
+    console.log("receive_message",data);
+    // socket.broadcast.emit("receive_message", data);
+    socket.emit("receive_message", data); 
   })
-
-  // socket.on('message', (data) => {
-  //   // console.log(data)
-  //   socket.broadcast.emit('receive_message', data)
-  // })
 });
 
 //----listen-Port-4500-----

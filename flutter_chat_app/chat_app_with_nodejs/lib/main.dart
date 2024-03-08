@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<ChatBloc>(
           create: (BuildContext context) =>
-              ChatBloc()..add(ConnectWebSocketEvent()),
+              ChatBloc()..add(WebSocketConnectEvent()),
         ),
       ],
       child: MaterialApp(
