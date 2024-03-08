@@ -62,27 +62,25 @@ class ChatScreen extends StatelessWidget {
           )),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: TextField(
-                    controller: chatBloc.messageController,
-                    decoration: const InputDecoration(
-                      hintText: 'Enter your message',
-                    ),
-                  ),
-                ),
-                IconButton(
+            child: TextField(
+              controller: chatBloc.messageController,
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                hintText: 'Enter your message',
+                suffixIcon: IconButton(
                   icon: const Icon(Icons.send),
                   onPressed: () {
-                    chatBloc.add(SendMessageEvent(
+                    chatBloc.add(
+                      SendMessageEvent(
                         chatModel: ChatModel(
-                      message: chatBloc.messageController.text,
-                      userName: chatBloc.username,
-                    )));
+                          message: chatBloc.messageController.text,
+                          userName: chatBloc.username,
+                        ),
+                      ),
+                    );
                   },
                 ),
-              ],
+              ),
             ),
           ),
         ],
