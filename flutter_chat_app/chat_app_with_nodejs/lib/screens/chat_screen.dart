@@ -1,4 +1,4 @@
-import 'package:chat_app_with_nodejs/blocs/bloc/chat_bloc.dart';
+import 'package:chat_app_with_nodejs/chat_bloc/chat_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,9 +8,9 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Chat App')),
-      body: BlocBuilder<ChatBloc, ChatState>(
+      body: BlocBuilder<ChatBloc, WebSocketChatState>(
         builder: (context, state) {
-          if (state is ChatMessageReceivedState) {
+          if (state is WebSocketMessageReceivedState) {
             return ListView.builder(
               itemCount: state.messages.length,
               itemBuilder: (context, index) => ListTile(

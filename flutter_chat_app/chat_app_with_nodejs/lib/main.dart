@@ -1,4 +1,4 @@
-import 'package:chat_app_with_nodejs/blocs/bloc/chat_bloc.dart';
+import 'package:chat_app_with_nodejs/chat_bloc/chat_bloc.dart';
 import 'package:chat_app_with_nodejs/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,9 +20,11 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.deepPurple,
+          ),
           useMaterial3: true,
         ),
         home: const ChatScreen(),
