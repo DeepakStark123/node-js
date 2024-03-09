@@ -73,6 +73,9 @@ class ChatScreen extends StatelessWidget {
                     chatBloc.add(
                       SendMessageEvent(
                         chatModel: ChatModel(
+                          clientId: chatBloc.socket == null
+                              ? ""
+                              : chatBloc.socket!.id.toString(),
                           message: chatBloc.messageController.text,
                           userName: chatBloc.username,
                         ),

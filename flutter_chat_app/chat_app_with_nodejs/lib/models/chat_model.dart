@@ -1,11 +1,13 @@
 class ChatModel {
   final String message;
   final String userName;
-  String? dateTime;
+  final String clientId;
+  final String? dateTime;
 
   ChatModel({
     required this.message,
     required this.userName,
+    required this.clientId,
     this.dateTime,
   });
 
@@ -14,6 +16,7 @@ class ChatModel {
       message: json['message'] ?? "",
       userName: json['username'] ?? "",
       dateTime: json['dateTime'] ?? DateTime.now().toString(),
+      clientId: json['clientId'] ?? "",
     );
   }
 
@@ -22,6 +25,7 @@ class ChatModel {
       'message': message,
       'username': userName,
       'dateTime': dateTime,
+      'clientId': clientId,
     };
   }
 }

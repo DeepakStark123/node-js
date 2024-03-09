@@ -11,7 +11,10 @@ part 'chat_state.dart';
 class ChatBloc extends Bloc<ChatEvent, WebSocketChatState> {
   TextEditingController messageController = TextEditingController();
   TextEditingController nameController = TextEditingController();
-  final String serverUrl = 'http://192.168.2.32:4500';
+  // final String serverUrl = 'http://192.168.2.32:4500'; //office
+  // final String serverUrl = 'http://192.168.53.93:4500'; //mine
+  final String serverUrl = 'http://192.168.0.106:4500'; //home
+
   final List<ChatModel> messagesList = [];
   io.Socket? socket;
   String username = "DemoUser";
@@ -43,9 +46,11 @@ class ChatBloc extends Bloc<ChatEvent, WebSocketChatState> {
       debugPrint("Receive message event===> $data");
       add(ReceiveMessageEvent(
         chatModel: ChatModel(
-            message: data['message'],
-            userName: data['username'],
-            dateTime: data['dateTime']),
+          message: data['message'],
+          userName: data['username'],
+          dateTime: data['dateTime'],
+          clientId: data['clientId'],
+        ),
       ));
     });
 
@@ -105,6 +110,7 @@ class ChatBloc extends Bloc<ChatEvent, WebSocketChatState> {
           'message': chatData.message.trim(),
           'username': event.chatModel.userName,
           'dateTime': DateTime.now().toString(),
+          'clientId': socket!.id.toString(),
         });
         messageController.clear();
       }
@@ -115,7 +121,8 @@ class ChatBloc extends Bloc<ChatEvent, WebSocketChatState> {
       debugPrint('Receive message ==> ${chatData.message}');
       messagesList.add(chatData);
       debugPrint("messagesList=> $messagesList");
-      emit(WebSocketMessageReceivedState(messagesList: messagesList));
+      emit(
+          WebSocketMessageReceivedState(messagesList: List.from(messagesList)));
     });
   }
 }

@@ -31,8 +31,8 @@ io.on('connection', (socket) => {
   //---Send-message---
   socket.on("send_message", (data) => {
     console.log("receive_message",data);
-    // socket.broadcast.emit("receive_message", data);
-    socket.emit("receive_message", data); 
+    socket.broadcast.emit("receive_message", data);
+    // socket.emit("receive_message", data); 
   })
 });
 
